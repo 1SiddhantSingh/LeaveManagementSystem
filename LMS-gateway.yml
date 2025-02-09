@@ -1,0 +1,38 @@
+server:
+  port: 8765
+
+spring:
+  application:
+    name: LMS-gateway 
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/LMS-eureka-service
+  instance:
+    hostname: localhost
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway: DEBUG  
+
+# Define Routes
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: hr-administrator-service
+          uri: lb://HrAdministrator-Service 
+          predicates:
+            - Path=/hradmin/** 
+
+        - id: manager-service
+          uri: lb://Manager-Service
+          predicates:
+            - Path=/manager/**  
+
+        - id: employee-service
+          uri: lb://Employee-Service 
+          predicates:
+            - Path=/employee/** 
