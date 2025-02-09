@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: Employee-Service
+#Database connectiviy
+  datasource:
+    url: jdbc:mysql://localhost:3306/leavemanagementsystem
+    username: root
+    password: Eshu@2024
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+#Server port
+server:
+  port: 8084
+#logging data
+logging:
+  level:
+    root: INFO
+    com.example.aoplogging: DEBUG
+    org.springframework: INFO
+  file:
+    name: logs/application.log
+    path: logs
+
+# Eureka Client Configuration
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/LMS-eureka-service
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+# Feign Circuit Breaker Configuration
+feign:
+  circuitbreaker:
+    enabled: true
